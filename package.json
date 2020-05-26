@@ -1,11 +1,19 @@
 {
   "name": "rxjs-monitor",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "an alternative way to keep track of opened subscriptions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js"
   },
   "author": "Filipe Mendes",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.5.5",
+    "rxjs-compat": "^6.5.5",
+    "uuidv4": "^6.0.9"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0"
+  }
 }
