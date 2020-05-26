@@ -1,10 +1,17 @@
 {
   "name": "rxjs-monitor",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "an alternative way to keep track of opened subscriptions",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filipemendes1994/rxjs-monitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/filipemendes1994/rxjs-monitor/issues"
   },
   "author": "Filipe Mendes",
   "license": "ISC",
