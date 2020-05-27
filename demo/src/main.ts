@@ -3,12 +3,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { enableSubscriptionMonitor } from 'rxjs-monitor';
+import { RxJSMonitor } from 'rxjs-monitor';
+import { Observable } from 'rxjs';
 
 if (environment.production) {
   enableProdMode();
 } else {
-  enableSubscriptionMonitor();
+  RxJSMonitor.init(Observable);
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
