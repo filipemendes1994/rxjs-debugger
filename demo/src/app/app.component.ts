@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { RxJSMonitor } from 'rxjs-monitor';
+import { FakePipe } from './pipes/fake.pipe';
+import { FakeService } from './services/fake.service';
+import { FakeDirective } from './directives/fake.directive';
+import { AvailableSource } from './app.constants';
 import { timer } from 'rxjs';
-import { tap, finalize } from 'rxjs/operators';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -8,28 +13,49 @@ import { tap, finalize } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {
-    timer(1000, 2000)
-      .pipe(
-        tap(x => console.log(x)),
-        finalize(() => console.log('acabou'))
-      )
-      .subscribe();
+  AvailableSource = AvailableSource;
 
-    timer(1000, 2000)
-      .subscribe(() => console.log('??? emitiu'));
+  fakePipe: FakePipe = new FakePipe();
+  fakeDirective: FakeDirective = new FakeDirective();
 
-    this.subscribeSomething();
+  @ViewChild('console') console: ElementRef;
 
-    this.getObservable().subscribe();
+  private readonly consoleEntryPrefix = '>>> ';
+
+  constructor(private fakeService: FakeService) { }
+
+  createFakeSubscription() {
+    timer(1000, 2000).subscribe();
   }
 
-  subscribeSomething() {
-    timer(1000, 2000)
-      .subscribe(() => console.log('??? emitiu'));
+  printSubscriptionsMap() {
+    this.consoleLogger(new JsonPipe().transform(RxJSMonitor.subscriptionsMap()));
   }
 
-  getObservable() {
-    return timer(1000, 2000);
+  addSubscription(source: AvailableSource) {
+    switch(source) {
+      case AvailableSource.COMPONENT:
+        this.createFakeSubscription();
+        break;
+      case AvailableSource.PIPE:
+        this.fakePipe.createFakeSubscription();
+        break;
+      case AvailableSource.DIRECTIVE:
+        this.fakeDirective.createFakeSubscription();
+        break;
+      case AvailableSource.SERVICE:
+        this.fakeService.createFakeSubscription();
+        break;
+    }
+
+    this.consoleLogger(`New subscription was added to ${source}`);
+  }
+
+  consoleLogger(entry: string) {
+    this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+  }
+
+  consoleClear() {
+    this.console.nativeElement.innerHTML = '';
   }
 }

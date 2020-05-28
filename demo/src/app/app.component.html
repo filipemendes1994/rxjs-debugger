@@ -1,0 +1,50 @@
+<div class="main-container">
+  <div class="btns-actions">
+    <button
+      (click)="addSubscription(AvailableSource.COMPONENT)"
+      class="btns-actions__item btns-actions__item--primary"
+    >
+      Create fake subscription on Component
+    </button>
+
+    <button
+      (click)="addSubscription(AvailableSource.PIPE)"
+      class="btns-actions__item btns-actions__item--primary"
+    >
+      Create fake subscription on Pipe
+    </button>
+
+    <button
+      (click)="addSubscription(AvailableSource.SERVICE)"
+      class="btns-actions__item btns-actions__item--primary"
+    >
+      Create fake subscription on Service
+    </button>
+
+    <button
+      (click)="addSubscription(AvailableSource.DIRECTIVE)"
+      class="btns-actions__item btns-actions__item--primary"
+    >
+      Create fake subscription on Directive
+    </button>
+
+    <button
+      class="btns-actions__item btns-actions__item--secundary"
+      (click)="printSubscriptionsMap()"
+    >
+      Show subscription map
+    </button>
+
+    <button
+      class="btns-actions__item btns-actions__item--secundary"
+      (click)="consoleClear()"
+    >
+      Clear Console
+    </button>
+  </div>
+
+  <pre
+    #console
+    class="console"
+  ></pre>
+</div>
