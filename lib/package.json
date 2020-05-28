@@ -3,6 +3,7 @@
   "version": "0.0.6",
   "description": "an alternative way to keep track of opened subscriptions",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "node index.js"
   },
@@ -16,12 +17,11 @@
   "author": "Filipe Mendes",
   "license": "ISC",
   "dependencies": {
-    "rxjs": "^6.5.5",
-    "rxjs-compat": "^6.5.5",
     "uuidv4": "^6.0.9"
   },
   "devDependencies": {
-    "eslint": "^7.1.0"
+    "eslint": "^7.1.0",
+    "typescript": "^3.9.3"
   },
   "keywords": [
     "rxjs",
@@ -30,6 +30,7 @@
     "stream"
   ],
   "files": [
+    "index.d.ts",
     "lib",
     "README.md"
   ]
