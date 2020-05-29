@@ -1,4 +1,4 @@
-export declare const RxJSMonitor: {
+export declare const RxJSDebugger: {
   subscriptionsMap: () => {},
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,

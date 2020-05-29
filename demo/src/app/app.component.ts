@@ -3,7 +3,7 @@ import { JsonPipe } from '@angular/common';
 
 import { timer, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { RxJSMonitor } from 'rxjs-monitor';
+import { RxJSDebugger } from 'rxjs-debugger';
 
 import { FakePipe } from './pipes/fake.pipe';
 import { FakeService } from './services/fake.service';
@@ -40,7 +40,7 @@ export class AppComponent implements OnDestroy {
   }
 
   printSubscriptionsMap() {
-    this.consoleLogger('\n' + new JsonPipe().transform(RxJSMonitor.subscriptionsMap()));
+    this.consoleLogger('\n' + new JsonPipe().transform(RxJSDebugger.subscriptionsMap()));
   }
 
   addSubscription(source: AvailableSource) {
@@ -63,7 +63,7 @@ export class AppComponent implements OnDestroy {
   }
 
   printSubscriptionsCount() {
-    this.consoleLogger(`Subscription Count: ${RxJSMonitor.openedSubscriptionsCount()}`);
+    this.consoleLogger(`Subscription Count: ${RxJSDebugger.openedSubscriptionsCount()}`);
   }
 
   cancelSubscriptions() {
@@ -81,7 +81,8 @@ export class AppComponent implements OnDestroy {
   }
 
   consoleLogger(entry: string) {
-    this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+    this.console.nativeElement.innerHTML +=
+      `<div><span style="color: green">${this.consoleEntryPrefix}</span>${entry}</div>`;
     this.console.nativeElement.scroll({
       top: this.console.nativeElement.scrollHeight
     });

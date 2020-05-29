@@ -133,8 +133,8 @@
     "build": {
       "builder": "@angular-devkit/build-angular:browser",
       "options": {
-        "baseHref" : "https://filipemendes1994.github.io/rxjs-monitor/",
-        "deployUrl": "https://filipemendes1994.github.io/rxjs-monitor/"
+        "baseHref" : "https://filipemendes1994.github.io/rxjs-debugger/",
+        "deployUrl": "https://filipemendes1994.github.io/rxjs-debugger/"
       }
     }
   }

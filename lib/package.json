@@ -1,6 +1,6 @@
 {
-  "name": "rxjs-monitor",
-  "version": "0.0.6",
+  "name": "rxjs-debugger",
+  "version": "0.1.0",
   "description": "an alternative way to keep track of opened subscriptions",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/filipemendes1994/rxjs-monitor.git"
+    "url": "https://github.com/filipemendes1994/rxjs-debugger.git"
   },
   "bugs": {
-    "url": "https://github.com/filipemendes1994/rxjs-monitor/issues"
+    "url": "https://github.com/filipemendes1994/rxjs-debugger/issues"
   },
   "author": "Filipe Mendes",
   "license": "ISC",
@@ -26,6 +26,7 @@
   "keywords": [
     "rxjs",
     "monitor",
+    "debugger",
     "observables",
     "stream"
   ],

@@ -1,2 +1,2 @@
-# RxJS Monitor
+# RxJS Debugger
 
