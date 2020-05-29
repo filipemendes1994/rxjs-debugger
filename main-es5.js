@@ -816,10 +816,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /*! @angular/platform-browser */
     "./node_modules/@angular/platform-browser/__ivy_ngcc__/fesm2015/platform-browser.js");
 
-    rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__["RxJSMonitor"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
-
     if (_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].production) {
       Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+    } else {
+      rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__["RxJSMonitor"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
     }
 
     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_4__["AppModule"])["catch"](function (err) {
