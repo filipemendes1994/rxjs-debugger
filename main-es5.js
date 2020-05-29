@@ -63,49 +63,55 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! rxjs-monitor */
-    "./node_modules/rxjs-monitor/index.js");
-    /* harmony import */
-
-
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_1___default =
-    /*#__PURE__*/
-    __webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_1__);
-    /* harmony import */
-
-
-    var _pipes_fake_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./pipes/fake.pipe */
-    "./src/app/pipes/fake.pipe.ts");
-    /* harmony import */
-
-
-    var _directives_fake_directive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ./directives/fake.directive */
-    "./src/app/directives/fake.directive.ts");
-    /* harmony import */
-
-
-    var _app_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./app.constants */
-    "./src/app/app.constants.ts");
-    /* harmony import */
-
-
-    var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! rxjs */
-    "./node_modules/rxjs/_esm2015/index.js");
-    /* harmony import */
-
-
-    var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _services_fake_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs */
+    "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
+    /* harmony import */
+
+
+    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! rxjs-monitor */
+    "./node_modules/rxjs-monitor/index.js");
+    /* harmony import */
+
+
+    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4___default =
+    /*#__PURE__*/
+    __webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__);
+    /* harmony import */
+
+
+    var _pipes_fake_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./pipes/fake.pipe */
+    "./src/app/pipes/fake.pipe.ts");
+    /* harmony import */
+
+
+    var _directives_fake_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./directives/fake.directive */
+    "./src/app/directives/fake.directive.ts");
+    /* harmony import */
+
+
+    var _app_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./app.constants */
+    "./src/app/app.constants.ts");
+    /* harmony import */
+
+
+    var _services_fake_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ./services/fake.service */
     "./src/app/services/fake.service.ts");
 
@@ -118,39 +124,46 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, AppComponent);
 
         this.fakeService = fakeService;
-        this.AvailableSource = _app_constants__WEBPACK_IMPORTED_MODULE_4__["AvailableSource"];
-        this.fakePipe = new _pipes_fake_pipe__WEBPACK_IMPORTED_MODULE_2__["FakePipe"]();
-        this.fakeDirective = new _directives_fake_directive__WEBPACK_IMPORTED_MODULE_3__["FakeDirective"]();
+        this.AvailableSource = _app_constants__WEBPACK_IMPORTED_MODULE_7__["AvailableSource"];
+        this.fakePipe = new _pipes_fake_pipe__WEBPACK_IMPORTED_MODULE_5__["FakePipe"]();
+        this.fakeDirective = new _directives_fake_directive__WEBPACK_IMPORTED_MODULE_6__["FakeDirective"]();
+        this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.consoleEntryPrefix = '>>> ';
       }
 
       _createClass(AppComponent, [{
+        key: "ngOnDestroy",
+        value: function ngOnDestroy() {
+          this.subscriptionFinisher$.next();
+          this.subscriptionFinisher$.complete();
+        }
+      }, {
         key: "createFakeSubscription",
         value: function createFakeSubscription() {
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["timer"])(1000, 2000).subscribe();
+          Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["timer"])(1000, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this.subscriptionFinisher$)).subscribe();
         }
       }, {
         key: "printSubscriptionsMap",
         value: function printSubscriptionsMap() {
-          this.consoleLogger(new _angular_common__WEBPACK_IMPORTED_MODULE_6__["JsonPipe"]().transform(rxjs_monitor__WEBPACK_IMPORTED_MODULE_1__["RxJSMonitor"].subscriptionsMap()));
+          this.consoleLogger('\n' + new _angular_common__WEBPACK_IMPORTED_MODULE_1__["JsonPipe"]().transform(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].subscriptionsMap()));
         }
       }, {
         key: "addSubscription",
         value: function addSubscription(source) {
           switch (source) {
-            case _app_constants__WEBPACK_IMPORTED_MODULE_4__["AvailableSource"].COMPONENT:
+            case _app_constants__WEBPACK_IMPORTED_MODULE_7__["AvailableSource"].COMPONENT:
               this.createFakeSubscription();
               break;
 
-            case _app_constants__WEBPACK_IMPORTED_MODULE_4__["AvailableSource"].PIPE:
+            case _app_constants__WEBPACK_IMPORTED_MODULE_7__["AvailableSource"].PIPE:
               this.fakePipe.createFakeSubscription();
               break;
 
-            case _app_constants__WEBPACK_IMPORTED_MODULE_4__["AvailableSource"].DIRECTIVE:
+            case _app_constants__WEBPACK_IMPORTED_MODULE_7__["AvailableSource"].DIRECTIVE:
               this.fakeDirective.createFakeSubscription();
               break;
 
-            case _app_constants__WEBPACK_IMPORTED_MODULE_4__["AvailableSource"].SERVICE:
+            case _app_constants__WEBPACK_IMPORTED_MODULE_7__["AvailableSource"].SERVICE:
               this.fakeService.createFakeSubscription();
               break;
           }
@@ -158,14 +171,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.consoleLogger("New subscription was added to ".concat(source));
         }
       }, {
-        key: "consoleLogger",
-        value: function consoleLogger(entry) {
-          this.console.nativeElement.innerHTML += "<div>".concat(this.consoleEntryPrefix).concat(entry, "</div>");
+        key: "printSubscriptionsCount",
+        value: function printSubscriptionsCount() {
+          this.consoleLogger("Subscription Count: ".concat(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].openedSubscriptionsCount()));
+        }
+      }, {
+        key: "cancelSubscriptions",
+        value: function cancelSubscriptions() {
+          this.subscriptionFinisher$.next();
+          this.fakePipe.cancelSubscriptions();
+          this.fakeDirective.cancelSubscriptions();
+          this.fakeService.cancelSubscriptions();
+          this.consoleLogger('Subscriptions canceled');
         }
       }, {
         key: "consoleClear",
         value: function consoleClear() {
           this.console.nativeElement.innerHTML = '';
+          this.consoleLogger('Console cleared but subscriptions keep alive!');
+        }
+      }, {
+        key: "consoleLogger",
+        value: function consoleLogger(entry) {
+          this.console.nativeElement.innerHTML += "<div>".concat(this.consoleEntryPrefix).concat(entry, "</div>");
         }
       }]);
 
@@ -173,7 +201,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     AppComponent.ɵfac = function AppComponent_Factory(t) {
-      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_fake_service__WEBPACK_IMPORTED_MODULE_7__["FakeService"]));
+      return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_fake_service__WEBPACK_IMPORTED_MODULE_8__["FakeService"]));
     };
 
     AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -190,7 +218,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.console = _t.first);
         }
       },
-      decls: 16,
+      decls: 20,
       vars: 0,
       consts: [[1, "main-container"], [1, "btns-actions"], [1, "btns-actions__item", "btns-actions__item--primary", 3, "click"], [1, "btns-actions__item", "btns-actions__item--secundary", 3, "click"], [1, "console"], ["console", ""]],
       template: function AppComponent_Template(rf, ctx) {
@@ -252,16 +280,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "button", 3);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_button_click_12_listener() {
+            return ctx.printSubscriptionsCount();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, " Get subscriptions count ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "button", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_button_click_14_listener() {
+            return ctx.cancelSubscriptions();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15, " Cancel Subscriptions ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "button", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_Template_button_click_16_listener() {
             return ctx.consoleClear();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, " Clear Console ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](17, " Clear Console ");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](14, "pre", 4, 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](18, "pre", 4, 5);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -280,7 +328,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }]
       }], function () {
         return [{
-          type: _services_fake_service__WEBPACK_IMPORTED_MODULE_7__["FakeService"]
+          type: _services_fake_service__WEBPACK_IMPORTED_MODULE_8__["FakeService"]
         }];
       }, {
         console: [{
@@ -446,18 +494,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
 
     var FakeDirective =
     /*#__PURE__*/
     function () {
       function FakeDirective() {
         _classCallCheck(this, FakeDirective);
+
+        this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
       }
 
       _createClass(FakeDirective, [{
         key: "createFakeSubscription",
         value: function createFakeSubscription() {
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).subscribe();
+          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.subscriptionFinisher$)).subscribe();
+        }
+      }, {
+        key: "cancelSubscriptions",
+        value: function cancelSubscriptions() {
+          this.subscriptionFinisher$.next();
         }
       }]);
 
@@ -517,12 +578,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
 
     var FakePipe =
     /*#__PURE__*/
     function () {
       function FakePipe() {
         _classCallCheck(this, FakePipe);
+
+        this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
       }
 
       _createClass(FakePipe, [{
@@ -533,7 +602,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createFakeSubscription",
         value: function createFakeSubscription() {
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).subscribe();
+          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.subscriptionFinisher$)).subscribe();
+        }
+      }, {
+        key: "cancelSubscriptions",
+        value: function cancelSubscriptions() {
+          this.subscriptionFinisher$.next();
         }
       }]);
 
@@ -594,18 +668,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs/operators */
+    "./node_modules/rxjs/_esm2015/operators/index.js");
 
     var FakeService =
     /*#__PURE__*/
     function () {
       function FakeService() {
         _classCallCheck(this, FakeService);
+
+        this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
       }
 
       _createClass(FakeService, [{
         key: "createFakeSubscription",
         value: function createFakeSubscription() {
-          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).subscribe();
+          Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["timer"])(1000, 2000).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.subscriptionFinisher$)).subscribe();
+        }
+      }, {
+        key: "cancelSubscriptions",
+        value: function cancelSubscriptions() {
+          this.subscriptionFinisher$.next();
         }
       }]);
 
