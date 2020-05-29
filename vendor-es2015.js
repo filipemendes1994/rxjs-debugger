@@ -53012,27 +53012,27 @@ const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('9.0.7
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-monitor/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/rxjs-monitor/index.js ***!
-  \********************************************/
+/***/ "./node_modules/rxjs-debugger/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/rxjs-debugger/index.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const { RxJSMonitor } = __webpack_require__(/*! ./lib/rxjs-monitor */ "./node_modules/rxjs-monitor/lib/rxjs-monitor.js");
+const { RxJSMonitor } = __webpack_require__(/*! ./lib/rxjs-monitor */ "./node_modules/rxjs-debugger/lib/rxjs-monitor.js");
 exports.RxJSMonitor = RxJSMonitor;
 
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-monitor/lib/get-classname.js":
-/*!********************************************************!*\
-  !*** ./node_modules/rxjs-monitor/lib/get-classname.js ***!
-  \********************************************************/
+/***/ "./node_modules/rxjs-debugger/lib/get-classname.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/rxjs-debugger/lib/get-classname.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const { isTargetToOwnClass, isNotTargetToNodeModulePackage} = __webpack_require__(/*! ./regex-utils */ "./node_modules/rxjs-monitor/lib/regex-utils.js");
+const { isTargetToOwnClass, isNotTargetToNodeModulePackage} = __webpack_require__(/*! ./regex-utils */ "./node_modules/rxjs-debugger/lib/regex-utils.js");
 
 /**
  * Get class name from a fake error stacktrace
@@ -53061,10 +53061,10 @@ exports.getClassName = getClassName;
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-monitor/lib/handle-subscriptions.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/rxjs-monitor/lib/handle-subscriptions.js ***!
-  \***************************************************************/
+/***/ "./node_modules/rxjs-debugger/lib/handle-subscriptions.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/rxjs-debugger/lib/handle-subscriptions.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53110,10 +53110,10 @@ exports.unregisterSubscription = unregisterSubscription;
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-monitor/lib/regex-utils.js":
-/*!******************************************************!*\
-  !*** ./node_modules/rxjs-monitor/lib/regex-utils.js ***!
-  \******************************************************/
+/***/ "./node_modules/rxjs-debugger/lib/regex-utils.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/rxjs-debugger/lib/regex-utils.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -53152,16 +53152,16 @@ exports.isFirstCall = isFirstCall;
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-monitor/lib/rxjs-monitor.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/rxjs-monitor/lib/rxjs-monitor.js ***!
-  \*******************************************************/
+/***/ "./node_modules/rxjs-debugger/lib/rxjs-monitor.js":
+/*!********************************************************!*\
+  !*** ./node_modules/rxjs-debugger/lib/rxjs-monitor.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const { isTargetToOwnClass, isFirstCall } = __webpack_require__(/*! ./regex-utils */ "./node_modules/rxjs-monitor/lib/regex-utils.js");
-const { getClassName } = __webpack_require__(/*! ./get-classname */ "./node_modules/rxjs-monitor/lib/get-classname.js");
-const { registerNewSubscription, unregisterSubscription } = __webpack_require__(/*! ./handle-subscriptions */ "./node_modules/rxjs-monitor/lib/handle-subscriptions.js");
+const { isTargetToOwnClass, isFirstCall } = __webpack_require__(/*! ./regex-utils */ "./node_modules/rxjs-debugger/lib/regex-utils.js");
+const { getClassName } = __webpack_require__(/*! ./get-classname */ "./node_modules/rxjs-debugger/lib/get-classname.js");
+const { registerNewSubscription, unregisterSubscription } = __webpack_require__(/*! ./handle-subscriptions */ "./node_modules/rxjs-debugger/lib/handle-subscriptions.js");
 
 const RxJSMonitor = {
   /**

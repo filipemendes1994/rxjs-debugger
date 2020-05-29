@@ -37,8 +37,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs-monitor */ "./node_modules/rxjs-monitor/index.js");
-/* harmony import */ var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs-debugger */ "./node_modules/rxjs-debugger/index.js");
+/* harmony import */ var rxjs_debugger__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _pipes_fake_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pipes/fake.pipe */ "./src/app/pipes/fake.pipe.ts");
 /* harmony import */ var _directives_fake_directive__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./directives/fake.directive */ "./src/app/directives/fake.directive.ts");
 /* harmony import */ var _app_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.constants */ "./src/app/app.constants.ts");
@@ -73,7 +73,7 @@ class AppComponent {
             .subscribe();
     }
     printSubscriptionsMap() {
-        this.consoleLogger('\n' + new _angular_common__WEBPACK_IMPORTED_MODULE_1__["JsonPipe"]().transform(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].subscriptionsMap()));
+        this.consoleLogger('\n' + new _angular_common__WEBPACK_IMPORTED_MODULE_1__["JsonPipe"]().transform(rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__["RxJSDebugger"].subscriptionsMap()));
     }
     addSubscription(source) {
         switch (source) {
@@ -93,7 +93,7 @@ class AppComponent {
         this.consoleLogger(`New subscription was added to ${source}`);
     }
     printSubscriptionsCount() {
-        this.consoleLogger(`Subscription Count: ${rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].openedSubscriptionsCount()}`);
+        this.consoleLogger(`Subscription Count: ${rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__["RxJSDebugger"].openedSubscriptionsCount()}`);
     }
     cancelSubscriptions() {
         this.subscriptionFinisher$.next();
@@ -108,6 +108,9 @@ class AppComponent {
     }
     consoleLogger(entry) {
         this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+        this.console.nativeElement.scroll({
+            top: this.console.nativeElement.scrollHeight
+        });
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_fake_service__WEBPACK_IMPORTED_MODULE_8__["FakeService"])); };
@@ -408,8 +411,8 @@ const environment = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs-monitor */ "./node_modules/rxjs-monitor/index.js");
-/* harmony import */ var rxjs_monitor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs-debugger */ "./node_modules/rxjs-debugger/index.js");
+/* harmony import */ var rxjs_debugger__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/__ivy_ngcc__/fesm2015/platform-browser.js");
@@ -423,7 +426,7 @@ if (_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].produc
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
 }
 else {
-    rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__["RxJSMonitor"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
+    rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__["RxJSDebugger"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
 }
 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_4__["AppModule"])
     .catch(err => console.error(err));

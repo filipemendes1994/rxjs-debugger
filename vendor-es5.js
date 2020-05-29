@@ -74073,18 +74073,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-monitor/index.js":
-  /*!********************************************!*\
-    !*** ./node_modules/rxjs-monitor/index.js ***!
-    \********************************************/
+  "./node_modules/rxjs-debugger/index.js":
+  /*!*********************************************!*\
+    !*** ./node_modules/rxjs-debugger/index.js ***!
+    \*********************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsMonitorIndexJs(module, exports, __webpack_require__) {
+  function node_modulesRxjsDebuggerIndexJs(module, exports, __webpack_require__) {
     var _webpack_require__ = __webpack_require__(
     /*! ./lib/rxjs-monitor */
-    "./node_modules/rxjs-monitor/lib/rxjs-monitor.js"),
+    "./node_modules/rxjs-debugger/lib/rxjs-monitor.js"),
         RxJSMonitor = _webpack_require__.RxJSMonitor;
 
     exports.RxJSMonitor = RxJSMonitor;
@@ -74092,18 +74092,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-monitor/lib/get-classname.js":
-  /*!********************************************************!*\
-    !*** ./node_modules/rxjs-monitor/lib/get-classname.js ***!
-    \********************************************************/
+  "./node_modules/rxjs-debugger/lib/get-classname.js":
+  /*!*********************************************************!*\
+    !*** ./node_modules/rxjs-debugger/lib/get-classname.js ***!
+    \*********************************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsMonitorLibGetClassnameJs(module, exports, __webpack_require__) {
+  function node_modulesRxjsDebuggerLibGetClassnameJs(module, exports, __webpack_require__) {
     var _webpack_require__2 = __webpack_require__(
     /*! ./regex-utils */
-    "./node_modules/rxjs-monitor/lib/regex-utils.js"),
+    "./node_modules/rxjs-debugger/lib/regex-utils.js"),
         isTargetToOwnClass = _webpack_require__2.isTargetToOwnClass,
         isNotTargetToNodeModulePackage = _webpack_require__2.isNotTargetToNodeModulePackage;
     /**
@@ -74132,15 +74132,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-monitor/lib/handle-subscriptions.js":
-  /*!***************************************************************!*\
-    !*** ./node_modules/rxjs-monitor/lib/handle-subscriptions.js ***!
-    \***************************************************************/
+  "./node_modules/rxjs-debugger/lib/handle-subscriptions.js":
+  /*!****************************************************************!*\
+    !*** ./node_modules/rxjs-debugger/lib/handle-subscriptions.js ***!
+    \****************************************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsMonitorLibHandleSubscriptionsJs(module, exports, __webpack_require__) {
+  function node_modulesRxjsDebuggerLibHandleSubscriptionsJs(module, exports, __webpack_require__) {
     var _webpack_require__3 = __webpack_require__(
     /*! uuidv4 */
     "./node_modules/uuidv4/build/lib/uuidv4.js"),
@@ -74189,15 +74189,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-monitor/lib/regex-utils.js":
-  /*!******************************************************!*\
-    !*** ./node_modules/rxjs-monitor/lib/regex-utils.js ***!
-    \******************************************************/
+  "./node_modules/rxjs-debugger/lib/regex-utils.js":
+  /*!*******************************************************!*\
+    !*** ./node_modules/rxjs-debugger/lib/regex-utils.js ***!
+    \*******************************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsMonitorLibRegexUtilsJs(module, exports) {
+  function node_modulesRxjsDebuggerLibRegexUtilsJs(module, exports) {
     /**
      * Test if subscribe method was called in a targetted class
      *
@@ -74246,29 +74246,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-monitor/lib/rxjs-monitor.js":
-  /*!*******************************************************!*\
-    !*** ./node_modules/rxjs-monitor/lib/rxjs-monitor.js ***!
-    \*******************************************************/
+  "./node_modules/rxjs-debugger/lib/rxjs-monitor.js":
+  /*!********************************************************!*\
+    !*** ./node_modules/rxjs-debugger/lib/rxjs-monitor.js ***!
+    \********************************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsMonitorLibRxjsMonitorJs(module, exports, __webpack_require__) {
+  function node_modulesRxjsDebuggerLibRxjsMonitorJs(module, exports, __webpack_require__) {
     var _webpack_require__4 = __webpack_require__(
     /*! ./regex-utils */
-    "./node_modules/rxjs-monitor/lib/regex-utils.js"),
+    "./node_modules/rxjs-debugger/lib/regex-utils.js"),
         isTargetToOwnClass = _webpack_require__4.isTargetToOwnClass,
         isFirstCall = _webpack_require__4.isFirstCall;
 
     var _webpack_require__5 = __webpack_require__(
     /*! ./get-classname */
-    "./node_modules/rxjs-monitor/lib/get-classname.js"),
+    "./node_modules/rxjs-debugger/lib/get-classname.js"),
         getClassName = _webpack_require__5.getClassName;
 
     var _webpack_require__6 = __webpack_require__(
     /*! ./handle-subscriptions */
-    "./node_modules/rxjs-monitor/lib/handle-subscriptions.js"),
+    "./node_modules/rxjs-debugger/lib/handle-subscriptions.js"),
         registerNewSubscription = _webpack_require__6.registerNewSubscription,
         unregisterSubscription = _webpack_require__6.unregisterSubscription;
 

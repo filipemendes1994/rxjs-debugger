@@ -81,15 +81,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! rxjs-monitor */
-    "./node_modules/rxjs-monitor/index.js");
+    var rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! rxjs-debugger */
+    "./node_modules/rxjs-debugger/index.js");
     /* harmony import */
 
 
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_4___default =
+    var rxjs_debugger__WEBPACK_IMPORTED_MODULE_4___default =
     /*#__PURE__*/
-    __webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__);
+    __webpack_require__.n(rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__);
     /* harmony import */
 
 
@@ -145,7 +145,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "printSubscriptionsMap",
         value: function printSubscriptionsMap() {
-          this.consoleLogger('\n' + new _angular_common__WEBPACK_IMPORTED_MODULE_1__["JsonPipe"]().transform(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].subscriptionsMap()));
+          this.consoleLogger('\n' + new _angular_common__WEBPACK_IMPORTED_MODULE_1__["JsonPipe"]().transform(rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__["RxJSDebugger"].subscriptionsMap()));
         }
       }, {
         key: "addSubscription",
@@ -173,7 +173,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "printSubscriptionsCount",
         value: function printSubscriptionsCount() {
-          this.consoleLogger("Subscription Count: ".concat(rxjs_monitor__WEBPACK_IMPORTED_MODULE_4__["RxJSMonitor"].openedSubscriptionsCount()));
+          this.consoleLogger("Subscription Count: ".concat(rxjs_debugger__WEBPACK_IMPORTED_MODULE_4__["RxJSDebugger"].openedSubscriptionsCount()));
         }
       }, {
         key: "cancelSubscriptions",
@@ -194,6 +194,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "consoleLogger",
         value: function consoleLogger(entry) {
           this.console.nativeElement.innerHTML += "<div>".concat(this.consoleEntryPrefix).concat(entry, "</div>");
+          this.console.nativeElement.scroll({
+            top: this.console.nativeElement.scrollHeight
+          });
         }
       }]);
 
@@ -788,15 +791,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! rxjs-monitor */
-    "./node_modules/rxjs-monitor/index.js");
+    var rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! rxjs-debugger */
+    "./node_modules/rxjs-debugger/index.js");
     /* harmony import */
 
 
-    var rxjs_monitor__WEBPACK_IMPORTED_MODULE_2___default =
+    var rxjs_debugger__WEBPACK_IMPORTED_MODULE_2___default =
     /*#__PURE__*/
-    __webpack_require__.n(rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__);
+    __webpack_require__.n(rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -819,7 +822,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     if (_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].production) {
       Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
     } else {
-      rxjs_monitor__WEBPACK_IMPORTED_MODULE_2__["RxJSMonitor"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
+      rxjs_debugger__WEBPACK_IMPORTED_MODULE_2__["RxJSDebugger"].init(rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]);
     }
 
     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_4__["AppModule"])["catch"](function (err) {
