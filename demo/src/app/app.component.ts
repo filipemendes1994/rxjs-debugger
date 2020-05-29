@@ -62,20 +62,25 @@ export class AppComponent implements OnDestroy {
     this.consoleLogger(`New subscription was added to ${source}`);
   }
 
+  printSubscriptionsCount() {
+    this.consoleLogger(`Subscription Count: ${RxJSMonitor.openedSubscriptionsCount()}`);
+  }
+
   cancelSubscriptions() {
     this.subscriptionFinisher$.next();
     this.fakePipe.cancelSubscriptions();
     this.fakeDirective.cancelSubscriptions();
     this.fakeService.cancelSubscriptions();
 
-    this.consoleLogger(`Subscriptions canceled`);
-  }
-
-  consoleLogger(entry: string) {
-    this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+    this.consoleLogger('Subscriptions canceled');
   }
 
   consoleClear() {
     this.console.nativeElement.innerHTML = '';
+    this.consoleLogger('Console cleared but subscriptions keep alive!');
+  }
+
+  consoleLogger(entry: string) {
+    this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
   }
 }
