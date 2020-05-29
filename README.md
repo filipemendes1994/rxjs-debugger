@@ -6,12 +6,13 @@ The demo app in this repo is available in repo's [GitHub pages](https://filipeme
 ## What is it?
 
 `rxjs-debugger` is an alternative and easy way to debug RxJS Observables and its subscriptions.
+Disclaimer: don't use this tool in production. This is a very experimental exercise.
 
 ### Why might you need it?
 
 The usual approach to debug RxJS-based code involves sprinkling `do` or custom operators. Then, logging is made available to notice an observable is subscribed and unsubscribed.
 
-While debugging Angular applications with hundreds of observables, I found these methods very time-consuming and boring, since we have to pipe every single observable we want to track. Bad-managed RxJS Subscriptions can affect application's performance widely and sail aimlessly can be very painfull.
+While debugging Angular applications with hundreds of observables, I found these methods very time-consuming and boring, since we have to pipe every single observable we want to track. Badly-managed RxJS Subscriptions can affect application's performance widely and sail aimlessly can be very painfull.
 
 I'm sure you also thinks the same, and this is a package you might need.
 
@@ -31,7 +32,7 @@ import { RxJSDebugger } from "rxjs-debugger";
 RxJSDebugger.init(Observable);
 ```
 
-Or `require` the module for use with Node or a CommonJS bundler:
+Or `require` the module to use with CommonJS bundler:
 
 ```js
 const { RxJSDebugger } = require("rxjs-debugger");
@@ -41,7 +42,7 @@ RxJSDebugger.init(Observable);
 
 ## Core concepts
 
-`rxjs-debugger` adds logic to `.subscribe()` method of Observable's prototype that allow us to monitorize the subscription and unsubscription calls of RxJS Observables and its extended classes (EventEmitter, Subject, BehaviorSubject...).
+`rxjs-debugger` adds logic to Observable's prototype `subscribe` method that allow us to monitorize the subscription and unsubscription calls of RxJS Observables and its extended classes (EventEmitter, Subject, BehaviorSubject...).
 
 ### Module API
 
@@ -56,12 +57,8 @@ export const RxJSDebugger: {
 }
 ```
 
-Unlike other RxJS debugging libraries, this one doesn't obly to change every observable we want to monitorize. Call `.init()` method is enough to trigger the debugging mode. After that, when an observable is subscribed, a new uuid is pushed to subscriber's class entry in `subscriptionsMap`. This allows us to know in realtime how many subscriptions exist in each project's class.
+Unlike other RxJS debugging libraries, this one doesn't obly to change every observable we want to monitorize. Calling `.init()` method is enough to trigger the debugging mode. After that, when an observable is subscribed, a new uuid is pushed to subscriber's class entry in `subscriptionsMap`. This allows us to know in realtime how many subscriptions exist in each project's class.
 
 ### Window API
 
-More than that, developer can access the tracked data via browser's console, using,
-
-```
-window.subscriptionsMap
-```
+More than that, developer can access the tracked data via browser's console, using `window.subscriptionsMap`.
