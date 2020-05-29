@@ -130,8 +130,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.consoleEntryPrefix = '>>> ';
       }
+      /**
+       * Adds initial message to console
+       *
+       * @memberof AppComponent
+       */
+
 
       _createClass(AppComponent, [{
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
+          this.consoleLogger('<span style="color: green;">\n' + '/*\n' + "Don't forget!\n" + 'You can use <b>window.subscriptionsMap</b>\n' + "on browser's console to get subscriptions map\n" + "*/</span>");
+        }
+      }, {
         key: "ngOnDestroy",
         value: function ngOnDestroy() {
           this.subscriptionFinisher$.next();
@@ -193,7 +204,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "consoleLogger",
         value: function consoleLogger(entry) {
-          this.console.nativeElement.innerHTML += "<div>".concat(this.consoleEntryPrefix).concat(entry, "</div>");
+          this.console.nativeElement.innerHTML += "<div><span style=\"color: green\">".concat(this.consoleEntryPrefix, "</span>").concat(entry, "</div>");
           this.console.nativeElement.scroll({
             top: this.console.nativeElement.scrollHeight
           });

@@ -63,6 +63,19 @@ class AppComponent {
         this.subscriptionFinisher$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.consoleEntryPrefix = '>>> ';
     }
+    /**
+     * Adds initial message to console
+     *
+     * @memberof AppComponent
+     */
+    ngAfterViewInit() {
+        this.consoleLogger('<span style="color: green;">\n' +
+            '/*\n' +
+            `Don't forget!\n` +
+            'You can use <b>window.subscriptionsMap</b>\n' +
+            `on browser's console to get subscriptions map\n` +
+            `*/</span>`);
+    }
     ngOnDestroy() {
         this.subscriptionFinisher$.next();
         this.subscriptionFinisher$.complete();
@@ -107,7 +120,8 @@ class AppComponent {
         this.consoleLogger('Console cleared but subscriptions keep alive!');
     }
     consoleLogger(entry) {
-        this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+        this.console.nativeElement.innerHTML +=
+            `<div><span style="color: green">${this.consoleEntryPrefix}</span>${entry}</div>`;
         this.console.nativeElement.scroll({
             top: this.console.nativeElement.scrollHeight
         });
