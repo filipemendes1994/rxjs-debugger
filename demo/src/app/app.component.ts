@@ -82,5 +82,8 @@ export class AppComponent implements OnDestroy {
 
   consoleLogger(entry: string) {
     this.console.nativeElement.innerHTML += `<div>${this.consoleEntryPrefix}${entry}</div>`;
+    this.console.nativeElement.scroll({
+      top: this.console.nativeElement.scrollHeight
+    });
   }
 }
