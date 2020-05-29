@@ -1,18 +1,21 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+
+import { timer, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { RxJSMonitor } from 'rxjs-monitor';
+
 import { FakePipe } from './pipes/fake.pipe';
 import { FakeService } from './services/fake.service';
 import { FakeDirective } from './directives/fake.directive';
 import { AvailableSource } from './app.constants';
-import { timer } from 'rxjs';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   AvailableSource = AvailableSource;
 
   fakePipe: FakePipe = new FakePipe();
@@ -20,16 +23,24 @@ export class AppComponent {
 
   @ViewChild('console') console: ElementRef;
 
+  private readonly subscriptionFinisher$: Subject<void> = new Subject();
   private readonly consoleEntryPrefix = '>>> ';
 
   constructor(private fakeService: FakeService) { }
 
+  ngOnDestroy() {
+    this.subscriptionFinisher$.next();
+    this.subscriptionFinisher$.complete();
+  }
+
   createFakeSubscription() {
-    timer(1000, 2000).subscribe();
+    timer(1000, 2000)
+      .pipe(takeUntil(this.subscriptionFinisher$))
+      .subscribe();
   }
 
   printSubscriptionsMap() {
-    this.consoleLogger(new JsonPipe().transform(RxJSMonitor.subscriptionsMap()));
+    this.consoleLogger('\n' + new JsonPipe().transform(RxJSMonitor.subscriptionsMap()));
   }
 
   addSubscription(source: AvailableSource) {
@@ -49,6 +60,15 @@ export class AppComponent {
     }
 
     this.consoleLogger(`New subscription was added to ${source}`);
+  }
+
+  cancelSubscriptions() {
+    this.subscriptionFinisher$.next();
+    this.fakePipe.cancelSubscriptions();
+    this.fakeDirective.cancelSubscriptions();
+    this.fakeService.cancelSubscriptions();
+
+    this.consoleLogger(`Subscriptions canceled`);
   }
 
   consoleLogger(entry: string) {
