@@ -53019,8 +53019,8 @@ const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('9.0.7
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const { RxJSMonitor } = __webpack_require__(/*! ./lib/rxjs-monitor */ "./node_modules/rxjs-debugger/lib/rxjs-monitor.js");
-exports.RxJSMonitor = RxJSMonitor;
+const { RxJSDebugger } = __webpack_require__(/*! ./lib/rxjs-debugger */ "./node_modules/rxjs-debugger/lib/rxjs-debugger.js");
+exports.RxJSDebugger = RxJSDebugger;
 
 
 /***/ }),
@@ -53152,10 +53152,10 @@ exports.isFirstCall = isFirstCall;
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-debugger/lib/rxjs-monitor.js":
-/*!********************************************************!*\
-  !*** ./node_modules/rxjs-debugger/lib/rxjs-monitor.js ***!
-  \********************************************************/
+/***/ "./node_modules/rxjs-debugger/lib/rxjs-debugger.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/rxjs-debugger/lib/rxjs-debugger.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53163,7 +53163,7 @@ const { isTargetToOwnClass, isFirstCall } = __webpack_require__(/*! ./regex-util
 const { getClassName } = __webpack_require__(/*! ./get-classname */ "./node_modules/rxjs-debugger/lib/get-classname.js");
 const { registerNewSubscription, unregisterSubscription } = __webpack_require__(/*! ./handle-subscriptions */ "./node_modules/rxjs-debugger/lib/handle-subscriptions.js");
 
-const RxJSMonitor = {
+const RxJSDebugger = {
   /**
    * Get subscriptions map
    * Format: <className>: uuid[]
@@ -53205,7 +53205,7 @@ const RxJSMonitor = {
   },
 }
 
-exports.RxJSMonitor = RxJSMonitor;
+exports.RxJSDebugger = RxJSDebugger;
 
 
 /***/ }),

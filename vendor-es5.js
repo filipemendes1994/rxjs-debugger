@@ -74083,11 +74083,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function node_modulesRxjsDebuggerIndexJs(module, exports, __webpack_require__) {
     var _webpack_require__ = __webpack_require__(
-    /*! ./lib/rxjs-monitor */
-    "./node_modules/rxjs-debugger/lib/rxjs-monitor.js"),
-        RxJSMonitor = _webpack_require__.RxJSMonitor;
+    /*! ./lib/rxjs-debugger */
+    "./node_modules/rxjs-debugger/lib/rxjs-debugger.js"),
+        RxJSDebugger = _webpack_require__.RxJSDebugger;
 
-    exports.RxJSMonitor = RxJSMonitor;
+    exports.RxJSDebugger = RxJSDebugger;
     /***/
   },
 
@@ -74246,15 +74246,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./node_modules/rxjs-debugger/lib/rxjs-monitor.js":
-  /*!********************************************************!*\
-    !*** ./node_modules/rxjs-debugger/lib/rxjs-monitor.js ***!
-    \********************************************************/
+  "./node_modules/rxjs-debugger/lib/rxjs-debugger.js":
+  /*!*********************************************************!*\
+    !*** ./node_modules/rxjs-debugger/lib/rxjs-debugger.js ***!
+    \*********************************************************/
 
   /*! no static exports found */
 
   /***/
-  function node_modulesRxjsDebuggerLibRxjsMonitorJs(module, exports, __webpack_require__) {
+  function node_modulesRxjsDebuggerLibRxjsDebuggerJs(module, exports, __webpack_require__) {
     var _webpack_require__4 = __webpack_require__(
     /*! ./regex-utils */
     "./node_modules/rxjs-debugger/lib/regex-utils.js"),
@@ -74272,7 +74272,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         registerNewSubscription = _webpack_require__6.registerNewSubscription,
         unregisterSubscription = _webpack_require__6.unregisterSubscription;
 
-    var RxJSMonitor = {
+    var RxJSDebugger = {
       /**
        * Get subscriptions map
        * Format: <className>: uuid[]
@@ -74326,7 +74326,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         };
       }
     };
-    exports.RxJSMonitor = RxJSMonitor;
+    exports.RxJSDebugger = RxJSDebugger;
     /***/
   },
 
