@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 
 import { timer, Subject } from 'rxjs';
@@ -15,7 +15,7 @@ import { AvailableSource } from './app.constants';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements AfterViewInit, OnDestroy {
   AvailableSource = AvailableSource;
 
   fakePipe: FakePipe = new FakePipe();
@@ -27,6 +27,22 @@ export class AppComponent implements OnDestroy {
   private readonly consoleEntryPrefix = '>>> ';
 
   constructor(private fakeService: FakeService) { }
+
+  /**
+   * Adds initial message to console
+   *
+   * @memberof AppComponent
+   */
+  ngAfterViewInit() {
+    this.consoleLogger(
+      '<span style="color: green;">\n' +
+      '/*\n' +
+      `Don't forget!\n` +
+      'You can use <b>window.subscriptionsMap</b>\n' +
+      `on browser's console to get subscriptions map\n` +
+      `*/</span>`
+    )
+  }
 
   ngOnDestroy() {
     this.subscriptionFinisher$.next();
