@@ -50,6 +50,10 @@ The exported `RxJSDebugger` object exposes the following API:
 
 ```js
 export const RxJSDebugger: {
+  valueChanges: Subject<any>,
+  obSubscribed$: Subject<string>,
+  obUnsubscribed$: Subject<string>,
+
   subscriptionsMap: () => {},
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,
