@@ -17,6 +17,7 @@
   "author": "Filipe Mendes",
   "license": "ISC",
   "dependencies": {
+    "rxjs": "^6.5.5",
     "uuidv4": "^6.0.9"
   },
   "devDependencies": {

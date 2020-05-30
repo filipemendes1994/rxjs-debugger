@@ -42,6 +42,15 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       `on browser's console to get subscriptions map\n` +
       `*/</span>`
     )
+
+    RxJSDebugger.valueChanges
+      .subscribe(() => this.consoleLogger('Subscription map value changed!'));
+
+    RxJSDebugger.obSubscribed$
+      .subscribe(className => this.consoleLogger(`Observable subscribed on ${className}!`));
+
+    RxJSDebugger.obUnsubscribed$
+      .subscribe(className => this.consoleLogger(`Observable unsubscribed on ${className}!`));
   }
 
   ngOnDestroy() {
@@ -53,10 +62,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     timer(1000, 2000)
       .pipe(takeUntil(this.subscriptionFinisher$))
       .subscribe();
-  }
-
-  printSubscriptionsMap() {
-    this.consoleLogger('\n' + new JsonPipe().transform(RxJSDebugger.subscriptionsMap()));
   }
 
   addSubscription(source: AvailableSource) {
@@ -74,8 +79,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
         this.fakeService.createFakeSubscription();
         break;
     }
+  }
 
-    this.consoleLogger(`New subscription was added to ${source}`);
+  printSubscriptionsMap() {
+    this.consoleLogger('\n' + new JsonPipe().transform(RxJSDebugger.subscriptionsMap()));
   }
 
   printSubscriptionsCount() {
