@@ -59,10 +59,17 @@ export const RxJSDebugger: {
   clearOnSubscribeLogic: () => void,
   clearOnUnsubscribeLogic: () => void,
 
+  setTargettedClasses: (targettedClasses) => void,
+
   subscriptionsMap: () => {},
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,
-  init: (observableDef) => void
+  init: (
+    observableDef: any,
+    targettedClasses?: string[],
+    onSubscribeFn?: Function,
+    onUnsubscribeFn?: Function
+  ) => void
 }
 ```
 
