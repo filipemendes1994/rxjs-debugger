@@ -35,14 +35,14 @@
       class="btns-actions__item btns-actions__item--other"
       (click)="addSubscriptionLogic(randomNumber)"
     >
-      Print {{ randomNumber }} on browser's console on new subscription
+      console.log({{ randomNumber }}) on new subscription
     </button>
 
     <button
       class="btns-actions__item btns-actions__item--other"
       (click)="addUnsubscriptionLogic(randomNumber)"
     >
-      Print {{ randomNumber }} on browser's console on unsubscribe
+      console.log({{ randomNumber }}) on unsubscribe
     </button>
 
     <button
@@ -56,7 +56,7 @@
       class="btns-actions__item btns-actions__item--other"
       (click)="clearUnsubscriptionLogic()"
     >
-      Clear extra subscription logic
+      Clear extra unsubscription logic
     </button>
 
     <!-- Operations -->

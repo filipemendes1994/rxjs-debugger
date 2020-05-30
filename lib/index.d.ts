@@ -32,8 +32,16 @@ export declare const RxJSDebugger: {
   /** Clear all unsubscribe extra logic */
   clearOnUnsubscribeLogic: () => void,
 
+  /** Set files to target while monitorizing observables */
+  setTargettedClasses: (targettedClasses) => void,
+
   subscriptionsMap: () => {},
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,
-  init: (observableDef, onSubscribeFn?, onUnsubscribeFn?) => void
+  init: (
+    observableDef,
+    targettedClasses?: string[],
+    onSubscribeFn?: Function,
+    onUnsubscribeFn?: Function
+  ) => void
 }
