@@ -53040,10 +53040,10 @@ const { isTargetToOwnClass, isNotTargetToNodeModulePackage} = __webpack_require_
  * @param {*} stacktrace
  * @returns
  */
-const getClassName = (stacktrace) => {
+const getClassName = (stacktrace, targettedClasses) => {
   const caller = stacktrace
     .split('\n')
-    .find(line => isTargetToOwnClass(line) && isNotTargetToNodeModulePackage(line));
+    .find(line => isTargetToOwnClass(line, targettedClasses) && isNotTargetToNodeModulePackage(line));
 
   if (!caller) {
     return null;
@@ -53069,6 +53069,12 @@ exports.getClassName = getClassName;
 /***/ (function(module, exports, __webpack_require__) {
 
 const { uuid } = __webpack_require__(/*! uuidv4 */ "./node_modules/uuidv4/build/lib/uuidv4.js");
+const { Subject } = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+
+const valueChanges = new Subject();
+const obSubscribed$ = new Subject();
+const obUnsubscribed$ = new Subject();
+
 
 /**
  * Add new subscription to subscription map
@@ -53084,6 +53090,9 @@ const registerNewSubscription = (className) => {
 
   const id = uuid();
   window.subscriptionsMap[className].push(id);
+
+  valueChanges.next(window.subscriptionsMap);
+  obSubscribed$.next(className);
 
   return id;
 };
@@ -53102,7 +53111,14 @@ const unregisterSubscription = (id, className) => {
   if (window.subscriptionsMap[className] && !window.subscriptionsMap[className].length) {
     delete window.subscriptionsMap[className];
   }
+
+  valueChanges.next(window.subscriptionsMap);
+  obUnsubscribed$.next(className);
 }
+
+exports.valueChanges = valueChanges;
+exports.obSubscribed$ = obSubscribed$;
+exports.obUnsubscribed$ = obUnsubscribed$;
 
 exports.registerNewSubscription = registerNewSubscription;
 exports.unregisterSubscription = unregisterSubscription;
@@ -53122,8 +53138,22 @@ exports.unregisterSubscription = unregisterSubscription;
  *
  * @param {*} stacktrace
  */
-const regexFiles = () => new RegExp(/(?<![\(|\/])\b[a-zA-Z]*(Component|Service|Pipe|Directive)[.| ](?![\w\s]*[\)])/gm);
-const isTargetToOwnClass = (stacktrace) => regexFiles().test(stacktrace);
+const defaultTargettedClasses = '(Component|Service|Pipe|Directive)';
+const parseTargettedClasses =
+  (targettedClasses) =>
+    targettedClasses && targettedClasses.reduce(
+      (acc, curr, idx) =>
+        idx < targettedClasses.length - 1 ?
+          acc += curr + '|' :
+          acc += curr + ')', '('
+      );
+const regexFiles = (targettedClasses) => new RegExp(`(?<![\\(|\\/])\\b[a-zA-Z]*${
+  targettedClasses ?
+    parseTargettedClasses(targettedClasses) :
+    defaultTargettedClasses
+  }[.| ](?![\\w\\s]*[\\)])`,'gm');
+
+const isTargetToOwnClass = (stacktrace, targettedClasses) => regexFiles(targettedClasses).test(stacktrace);
 
 /**
  * Test if target observable is not part of a node_module package
@@ -53161,9 +53191,21 @@ exports.isFirstCall = isFirstCall;
 
 const { isTargetToOwnClass, isFirstCall } = __webpack_require__(/*! ./regex-utils */ "./node_modules/rxjs-debugger/lib/regex-utils.js");
 const { getClassName } = __webpack_require__(/*! ./get-classname */ "./node_modules/rxjs-debugger/lib/get-classname.js");
-const { registerNewSubscription, unregisterSubscription } = __webpack_require__(/*! ./handle-subscriptions */ "./node_modules/rxjs-debugger/lib/handle-subscriptions.js");
+const {
+  registerNewSubscription,
+  unregisterSubscription,
+  valueChanges,
+  obSubscribed$,
+  obUnsubscribed$
+} = __webpack_require__(/*! ./handle-subscriptions */ "./node_modules/rxjs-debugger/lib/handle-subscriptions.js");
+
+let onSubscribeFns = [], onUnsubscribeFns = [];
 
 const RxJSDebugger = {
+  valueChanges: valueChanges,
+  obSubscribed$: obSubscribed$,
+  obUnsubscribed$: obUnsubscribed$,
+
   /**
    * Get subscriptions map
    * Format: <className>: uuid[]
@@ -53179,28 +53221,50 @@ const RxJSDebugger = {
   /** Reset subscritions map */
   resetSubscriptionsMap: () => window.subscriptionsMap = {},
 
+  /** Add subscribe logic */
+  addOnSubscribeLogic: (fn) => !!fn && onSubscribeFns.push(fn),
+  /** Add unsubscribe logic */
+  addOnUnsubscribeLogic: (fn) => !!fn && onUnsubscribeFns.push(fn),
+
+  /** Clear all subscribe extra logic */
+  clearOnSubscribeLogic: () => onSubscribeFns = [],
+  /** Clear all unsubscribe extra logic */
+  clearOnUnsubscribeLogic: () => onUnsubscribeFns = [],
+
+  /** Set files to target while monitorizing observables */
+  setTargettedClasses: (targettedClasses) =>
+    RxJSDebugger.targettedClasses = targettedClasses,
+
   /**
    * Override original behavior from Observable.subscribe()
    * Adds some logic to keep track the subscription and unsubscription of RxJS objects
   */
-  init: (observableDef) => {
+  init: (observableDef, targettedClasses, onSubscribeFn, onUnsubscribeFn) => {
     window.subscriptionsMap = {};
+
+    RxJSDebugger.addOnSubscribeLogic(onSubscribeFn);
+    RxJSDebugger.addOnUnsubscribeLogic(onUnsubscribeFn);
+
     const originalSubscribeFn = observableDef.prototype.subscribe;
     observableDef.prototype.subscribe = function overrideSubscribe(...args) {
       const stacktrace = new Error().stack;
-      const handleSubscription = isTargetToOwnClass(stacktrace) && isFirstCall(stacktrace);
+      const handleSubscription = isTargetToOwnClass(stacktrace, targettedClasses) && isFirstCall(stacktrace);
 
       if (!handleSubscription) {
         return originalSubscribeFn.call(this, ...args);
       }
 
-      const className = getClassName(stacktrace);
+      const className = getClassName(stacktrace, targettedClasses);
       if (!className) {
         return originalSubscribeFn.call(this, ...args);
       }
 
+      onSubscribeFns.forEach(fn => fn());
       const id = registerNewSubscription(className);
-      return originalSubscribeFn.call(this, ...args).add(() => unregisterSubscription(id, className));
+      return originalSubscribeFn.call(this, ...args).add(() => {
+        onUnsubscribeFns.forEach(fn => fn());
+        unregisterSubscription(id, className)
+      });
     };
   },
 }
