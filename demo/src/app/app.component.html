@@ -1,5 +1,7 @@
 <div class="main-container">
   <div class="btns-actions">
+
+    <!-- Add timers on fake classes -->
     <button
       (click)="addSubscription(AvailableSource.COMPONENT)"
       class="btns-actions__item btns-actions__item--primary"
@@ -28,6 +30,36 @@
       Create fake subscription on Directive
     </button>
 
+    <!-- Change logic on subscribe and unsubscribe -->
+    <button
+      class="btns-actions__item btns-actions__item--other"
+      (click)="addSubscriptionLogic(randomNumber)"
+    >
+      Print {{ randomNumber }} on browser's console on new subscription
+    </button>
+
+    <button
+      class="btns-actions__item btns-actions__item--other"
+      (click)="addUnsubscriptionLogic(randomNumber)"
+    >
+      Print {{ randomNumber }} on browser's console on unsubscribe
+    </button>
+
+    <button
+      class="btns-actions__item btns-actions__item--other"
+      (click)="clearSubscriptionLogic()"
+    >
+      Clear extra subscription logic
+    </button>
+
+    <button
+      class="btns-actions__item btns-actions__item--other"
+      (click)="clearUnsubscriptionLogic()"
+    >
+      Clear extra subscription logic
+    </button>
+
+    <!-- Operations -->
     <button
       class="btns-actions__item btns-actions__item--secundary"
       (click)="printSubscriptionsMap()"

@@ -54,6 +54,11 @@ export const RxJSDebugger: {
   obSubscribed$: Subject<string>,
   obUnsubscribed$: Subject<string>,
 
+  addOnSubscribeLogic: (fn: Function) => void,
+  addOnUnsubscribeLogic: (fn: Function) => void,
+  clearOnSubscribeLogic: () => void,
+  clearOnUnsubscribeLogic: () => void,
+
   subscriptionsMap: () => {},
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,

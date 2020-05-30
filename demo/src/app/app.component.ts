@@ -23,6 +23,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('console') console: ElementRef;
 
+  randomNumber: number = this.getRandomNumber();
+
   private readonly subscriptionFinisher$: Subject<void> = new Subject();
   private readonly consoleEntryPrefix = '>>> ';
 
@@ -81,6 +83,24 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  addSubscriptionLogic(randomNumber) {
+    RxJSDebugger.addOnSubscribeLogic(() => console.log(randomNumber));
+    this.randomNumber = this.getRandomNumber();
+  }
+
+  addUnsubscriptionLogic(randomNumber) {
+    RxJSDebugger.addOnUnsubscribeLogic(() => console.log(randomNumber));
+    this.randomNumber = this.getRandomNumber();
+  }
+
+  clearSubscriptionLogic() {
+    RxJSDebugger.clearOnSubscribeLogic();
+  }
+
+  clearUnsubscriptionLogic() {
+    RxJSDebugger.clearOnUnsubscribeLogic();
+  }
+
   printSubscriptionsMap() {
     this.consoleLogger('\n' + new JsonPipe().transform(RxJSDebugger.subscriptionsMap()));
   }
@@ -94,8 +114,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.fakePipe.cancelSubscriptions();
     this.fakeDirective.cancelSubscriptions();
     this.fakeService.cancelSubscriptions();
-
-    this.consoleLogger('Subscriptions canceled');
   }
 
   consoleClear() {
@@ -103,7 +121,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.consoleLogger('Console cleared but subscriptions keep alive!');
   }
 
-  consoleLogger(entry: string) {
+  private getRandomNumber() {
+    return Math.floor(Math.random() * 100);
+  }
+
+  private consoleLogger(entry: string) {
     this.console.nativeElement.innerHTML +=
       `<div><span style="color: green">${this.consoleEntryPrefix}</span>${entry}</div>`;
     this.console.nativeElement.scroll({
