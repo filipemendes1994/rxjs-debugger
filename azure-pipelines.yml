@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- fmendes/*
 
 pool:
   vmImage: 'ubuntu-latest'
