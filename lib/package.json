@@ -1,11 +1,12 @@
 {
   "name": "rxjs-debugger",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "description": "an alternative way to keep track of opened subscriptions",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "node index.js"
+    "bump-and-publish": "npm run test; npm version patch; npm publish",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "eslint": "^7.1.0",
+    "jest": "^26.0.1",
     "typescript": "^3.9.3"
   },
   "keywords": [
