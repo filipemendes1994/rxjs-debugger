@@ -1,0 +1,35 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+- fmendes/**
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+  displayName: 'Install Angular CLI'
+
+- script: | 
+    cd lib
+    npm i
+    npm run test
+    cd ..
+  displayName: 'Test RxJSDebugger package'
+
+- script: |
+    cd demo 
+    npm i
+    ng build --base-href 'https://filipemendes1994.github.io/rxjs-debugger/'
+  displayName: 'Build demo app'
+
