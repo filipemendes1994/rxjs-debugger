@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "ng build --base-href 'https://filipemendes1994.github.io/rxjs-debugger/' && sudo angular-cli-ghpages --dir=dist/demo"
+    "publish": "npm run pre-publish && sudo angular-cli-ghpages --dir=dist/demo",
+    "prepublish": "ng build --base-href 'https://filipemendes1994.github.io/rxjs-debugger/'"
   },
   "private": true,
   "dependencies": {
