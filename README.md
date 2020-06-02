@@ -12,7 +12,10 @@ Disclaimer: don't use this tool in production. This is a very experimental exerc
 
 The usual approach to debug RxJS-based code involves sprinkling `do` or custom operators. Then, logging is made available to notice an observable is subscribed and unsubscribed.
 
-While debugging Angular applications with hundreds of observables, I found these methods very time-consuming and boring, since we have to pipe every single observable we want to track. Badly-managed RxJS Subscriptions can affect application's performance widely and sail aimlessly can be very painfull.
+While debugging Angular applications with hundreds of observables, I found these methods very time-consuming, since we have to pipe every single observable we want to track. Badly-managed RxJS Subscriptions can affect application's performance widely and sail aimlessly can be very painfull.
+
+You can find more info about this package in this Medium Post
+(https://medium.com/@filipemendes_73527/rxjs-debugger-an-alternative-way-to-debug-rxjs-observables-eb6d4b7fef6c)
 
 I'm sure you also thinks the same, and this is a package you might need.
 
@@ -21,12 +24,12 @@ I'm sure you also thinks the same, and this is a package you might need.
 Install the package using NPM:
 
 ```
-npm install rxjs-debugger --save-dev
+npm install --save-dev rxjs-debugger
 ```
 
 And add only the following code to `main.ts`,
 
-```js
+```ts
 import { Observable } from "rxjs";
 import { RxJSDebugger } from "rxjs-debugger";
 RxJSDebugger.init(Observable);
@@ -49,31 +52,37 @@ RxJSDebugger.init(Observable);
 The exported `RxJSDebugger` object exposes the following API:
 
 ```js
+export declare type SubscriptionsMap = { [key: string]: string[] };
+export declare type ClassName = string;
+export declare type ObservableDef = typeof Observable;
+
 export const RxJSDebugger: {
-  valueChanges: Subject<any>,
-  obSubscribed$: Subject<string>,
-  obUnsubscribed$: Subject<string>,
+  valueChanges: Subject<SubscriptionsMap>;
+  obSubscribed$: Subject<ClassName>,
+  obUnsubscribed$: Subject<ClassName>,
 
   addOnSubscribeLogic: (fn: Function) => void,
   addOnUnsubscribeLogic: (fn: Function) => void,
+
   clearOnSubscribeLogic: () => void,
   clearOnUnsubscribeLogic: () => void,
 
-  setTargettedClasses: (targettedClasses) => void,
+  setTargettedClasses: (targettedClasses: ClassName[]) => void,
 
-  subscriptionsMap: () => {},
+  subscriptionsMap: () => SubscriptionsMap,
   openedSubscriptionsCount: () => number,
   clearSubscriptionsMap: () => void,
+
   init: (
-    observableDef: any,
-    targettedClasses?: string[],
-    onSubscribeFn?: Function,
-    onUnsubscribeFn?: Function
+    observableDef: ObservableDef,
+    targettedClasses?: ClassName[],
+    onSubscribeFn?: () => void,
+    onUnsubscribeFn?: () => void
   ) => void
 }
 ```
 
-Unlike other RxJS debugging libraries, this one doesn't obly to change every observable we want to monitorize. Calling `.init()` method is enough to trigger the debugging mode. After that, when an observable is subscribed, a new uuid is pushed to subscriber's class entry in `subscriptionsMap`. This allows us to know in realtime how many subscriptions exist in each project's class.
+Unlike other RxJS debugging libraries, this one doesn't force you to change every observable you want to monitorize. Calling `.init()` method is enough to trigger the debugging mode. After that, when an observable is subscribed, a new uuid is pushed to subscriber's class entry in `subscriptionsMap`. It allows us to know in realtime how many subscriptions exist in each class.
 
 ### Window API
 

@@ -1,26 +1,30 @@
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
+
+export declare type SubscriptionsMap = { [key: string]: string[] };
+export declare type ClassName = string;
+export declare type ObservableDef = typeof Observable;
 
 export declare const RxJSDebugger: {
   /**
-   * Emits subscriptionsMap every time a new entry is created on map
+   * Emits subscriptionsMap every time an observable is subscribed or unsubscribed
    *
-   * @type {Subject<any>}
+   * @type {Subject<SubscriptionsMap>}
    */
-  valueChanges: Subject<any>;
+  valueChanges: Subject<SubscriptionsMap>;
 
   /**
    * Emits className every time an observable is subscribed
    *
-   * @type {Subject<string>}
+   * @type {Subject<ClassName>}
    */
-  obSubscribed$: Subject<string>,
+  obSubscribed$: Subject<ClassName>,
 
   /**
    * Emits className every time an observable is unsubscribed
    *
-   * @type {Subject<string>}
+   * @type {Subject<ClassName>}
    */
-  obUnsubscribed$: Subject<string>,
+  obUnsubscribed$: Subject<ClassName>,
 
   /** Add subscribe logic */
   addOnSubscribeLogic: (fn: Function) => void,
@@ -33,15 +37,23 @@ export declare const RxJSDebugger: {
   clearOnUnsubscribeLogic: () => void,
 
   /** Set files to target while monitorizing observables */
-  setTargettedClasses: (targettedClasses) => void,
+  setTargettedClasses: (targettedClasses: ClassName[]) => void,
 
-  subscriptionsMap: () => {},
+  /** Get Subscription Map */
+  subscriptionsMap: () => SubscriptionsMap,
+  /** Get opened subscriptions count */
   openedSubscriptionsCount: () => number,
+  /** Reset subscriptions map */
   clearSubscriptionsMap: () => void,
+
+  /**
+   * Enables subscriptions monitorization
+   * ex: RxJSDebugger.init(Observable, ['AppComponent'], () => console.log('observable subscribed'), () => console.log('observable unsubscribed'))
+   */
   init: (
-    observableDef,
-    targettedClasses?: string[],
-    onSubscribeFn?: Function,
-    onUnsubscribeFn?: Function
+    observableDef: ObservableDef,
+    targettedClasses?: ClassName[],
+    onSubscribeFn?: () => void,
+    onUnsubscribeFn?: () => void
   ) => void
 }
