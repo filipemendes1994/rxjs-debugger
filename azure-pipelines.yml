@@ -30,6 +30,6 @@ steps:
 - script: |
     cd demo 
     npm i
-    npm run prepublish
+    ng build --base-href 'https://filipemendes1994.github.io/rxjs-debugger/
   displayName: 'Build demo app'
 
