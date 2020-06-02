@@ -1,5 +1,7 @@
 # RxJS Debugger
 
+[![Build Status](https://filipemendes1994.visualstudio.com/rxjs-debugger/_apis/build/status/filipemendes1994.rxjs-debugger?branchName=master)](https://filipemendes1994.visualstudio.com/rxjs-debugger/_build/latest?definitionId=1&branchName=master)
+
 ## Demo
 The demo app in this repo is available in repo's [GitHub pages](https://filipemendes1994.github.io/rxjs-debugger).
 

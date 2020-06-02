@@ -6,6 +6,9 @@
 trigger:
 - master
 - fmendes/**
+- feature/**
+- enhancement/**
+- bugfix/**
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -20,7 +23,7 @@ steps:
     npm install -g @angular/cli
   displayName: 'Install Angular CLI'
 
-- script: | 
+- script: |
     cd lib
     npm i
     npm run test
@@ -28,8 +31,8 @@ steps:
   displayName: 'Test RxJSDebugger package'
 
 - script: |
-    cd demo 
+    cd demo
     npm i
-    ng build --base-href 'https://filipemendes1994.github.io/rxjs-debugger/'
+    npm run prepublish
   displayName: 'Build demo app'
 
